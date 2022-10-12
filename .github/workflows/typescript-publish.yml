@@ -19,17 +19,20 @@ on:
     - 'tests/e2e/**'
     - '.github/workflows/typescript-publish.yml'
 
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e
       with:
         node-version: '12'
         registry-url: 'https://registry.npmjs.org'
         scope: '@eclipse-che'
     - name: Clone source code
-      uses: actions/checkout@v2
+      uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e
       with:
         fetch-depth: 0
     - name: publish

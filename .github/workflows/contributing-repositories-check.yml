@@ -18,11 +18,14 @@ on:
   pull_request:
     paths:
       - '.repositories.yaml'
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
 jobs:
   check-contributing-up-to-date:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e
       name: Checkout che-theia source code
     - name: check
       run: |

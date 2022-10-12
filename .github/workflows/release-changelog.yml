@@ -16,11 +16,14 @@ on:
         description: 'The version that is going to be released. Should be in format 7.y.z'
         required: true
         default: ''
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e
         with: 
           fetch-depth: 0
       - name: Set up GH checkout and tokens
@@ -33,7 +36,7 @@ jobs:
       - name: Create changelog
         id: generate-release-changelog
         # wrapper for https://github.com/github-changelog-generator/github-changelog-generator
-        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        uses: heinrichreimer/github-changelog-generator-action@854576bb5274851427527d8199fba0061552dff5
         env:
           GITHUB_TOKEN: ${{ secrets.CHE_BOT_GITHUB_TOKEN }}
           CHANGELOG_GITHUB_TOKEN: ${{ secrets.CHE_BOT_GITHUB_TOKEN }}
@@ -66,7 +69,7 @@ jobs:
           token: ${{ secrets.CHE_BOT_GITHUB_TOKEN }} 
       - name: Create GH Release
         id: create_release
-        uses: ncipollo/release-action@v1.8.0
+        uses: ncipollo/release-action@4c1d33eaa1d04123da2c1da8d337ba6052d64af5
         env:
           GITHUB_TOKEN: ${{ secrets.CHE_BOT_GITHUB_TOKEN }} 
         with:
